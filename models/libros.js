@@ -1,41 +1,30 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');  // tu pool convertido a instancia Sequelize
-
+const sequelize = require('../config/db');
 
 const Libro = sequelize.define('Libro', {
     codlibro: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        validate: {
-            len: {
-                args: [1, 11], // Esto no se aplica a INTEGER, pero puedes usarlo para cadenas
-                msg: "El código del libro debe tener hasta 11 dígitos."
-            },
-            isInt: {
-                msg: "El código del libro debe ser un número entero."
-            }
-        }
+        autoIncrement: true
     },
     nomlibro: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false
     },
     genero: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(30),
+        allowNull: true
     },
     autor: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(50),
+        allowNull: true
     },
     url: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: 'https://www.google.com'
+        type: DataTypes.TEXT,
+        allowNull: true
     },
     activo: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2),
         allowNull: false,
         defaultValue: 'SI'
     }
@@ -44,42 +33,4 @@ const Libro = sequelize.define('Libro', {
     timestamps: false
 });
 
-const PrestamoLibro = sequelize.define('PrestamoLibro', {
-    codprestamo: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        validate: {
-            len: {
-                args: [1, 11],
-                msg: "El código del préstamo debe tener hasta 11 dígitos."
-            },
-            isInt: {
-                msg: "El código del préstamo debe ser un número entero."
-            }
-        }
-    },
-    codlibro: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        validate: {
-            len: {
-                args: [1, 11],
-                msg: "El código del préstamo debe tener hasta 11 dígitos."
-            },
-            isInt: {
-                msg: "El código del préstamo debe ser un número entero."
-            }
-        }
-    }
-}, {
-    tableName: 'libroprestamo',
-    timestamps: false
-})
-
-module.exports = {
-    Libro,
-    PrestamoLibro
-}
-    ;
+module.exports = Libro;
