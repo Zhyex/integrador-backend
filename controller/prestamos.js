@@ -3,7 +3,6 @@ const { Prestamo, LibroPrestamo, Libro } = require('../models/index');
 // Crear nuevo prestamo
 const crearPrestamo = async (request, response) => {
     const {
-        codprestamo,
         idusuario,
         activo
     } = request.body;
@@ -11,7 +10,7 @@ const crearPrestamo = async (request, response) => {
     const fecha = new Date();
 
     const nuevoPrestamo = await Prestamo.create({
-        codprestamo,
+
         fecha,
         idusuario,
         activo
